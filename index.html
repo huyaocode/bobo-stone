@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>波波精雕工作室</title>
+    <meta itemprop="name" content="波波精雕工作室" />
+    <meta itemprop="description" content="波波精雕 —— 专业石材雕刻" />
+    <style>
+      .cover {
+        text-align: center;
+        margin: 50px 0;
+      }
+
+      .cover h1 {
+        text-transform: uppercase;
+        display: block;
+        font-size: 40px;
+        color: #f1ebe5;
+        text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+        font-weight: bold;
+        letter-spacing: -4px;
+        text-align: center;
+        border-radius: 20px;
+        color: #336699;
+        letter-spacing: 1px;
+      }
+
+      .pic {
+        width: 100%;
+        min-height: 200px;
+        background-color: #ddd;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .pic::before {
+        content: "加载中";
+        display: block;
+        font-size: 20px;
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        top: 50%;
+        margin-top: -10px;
+        margin-left: -30px;
+        color: #aaa;
+      }
+
+      img {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: auto;
+        z-index: 2;
+      }
+
+      #get-more {
+        width: 80%;
+        height: 60px;
+        line-height: 60px;
+        margin: 30px auto;
+        text-align: center;
+        background-color: #0670fe;
+        color: #fff;
+        border-radius: 30px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div class="cover">
+        <h1>波波精雕工作室</h1>
+        <h3>联系电话 185 9995 8270</h3>
+        <p>我们用精益求精的态度为您提供最好的服务！</p>
+
+        <div class="qrcode"></div>
+      </div>
+      <div id="pics"></div>
+      <div id="get-more">加载更多</div>
+    </div>
+    <script>
+      var curIndex = 2;
+      var pageSize = 10;
+      var maxCount = 230;
+      var picsDom = document.getElementById("pics");
+      var getMoreBtn = document.getElementById("get-more");
+
+      function getNextPage() {
+        var content = "";
+        for (var i = 0; i < pageSize && curIndex + i < maxCount; i++) {
+          content +=
+            '<div class="pic"><img src="./assets/' +
+            parseInt(curIndex + i) +
+            '.jpg" alt="" srcset="" /></div>';
+        }
+        curIndex += pageSize;
+        var dom = document.createElement("div");
+        dom.innerHTML = content;
+        picsDom.appendChild(dom);
+
+        if (curIndex >= maxCount) {
+          getMoreBtn.innerText = "到底了";
+          getMoreBtn.style.backgroundColor = "#fff";
+          getMoreBtn.style.color = "#aaa";
+        }
+      }
+
+      getMoreBtn.onclick = function () {
+        getNextPage();
+      };
+
+      window.onload = function () {
+        setTimeout(function () {
+          getNextPage();
+        }, 10);
+      };
+    </script>
+  </body>
+</html>
